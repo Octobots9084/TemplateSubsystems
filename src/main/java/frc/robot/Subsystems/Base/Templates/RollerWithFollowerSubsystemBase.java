@@ -18,18 +18,20 @@ import frc.robot.Constants;
 import frc.robot.Subsystems.Base.Templates.SubsystemHandle;
 
 public abstract class RollerWithFollowerSubsystemBase<T extends Enum<T>> extends SubsystemHandle<T> {
+    //NEEDS SUPPORT FOR MULTIPLE FOLLOWERS
+    //Add a follower object for following
     public TalonFX motor;
-    public TalonFX follower;
+    public Follower follower;
     private String internalName;
     public VelocityVoltage velocityVoltage = new VelocityVoltage(0);
     public double RPM = 0;
     public double motorGearRatio;
     public double followerGearRatio;
-    
+        //rename e so we know what it is
         public RollerWithFollowerSubsystemBase(T e, int rollerId, int followerId, MotorAlignmentValue alignment, String subsystemName, double motorGearRatio, double followerGearRatio, boolean invertFollower) {
             super(e);
             motor = new TalonFX(rollerId, Constants.krakenBus);
-            follower = new TalonFX(followerId, Constants.krakenBus);
+            follower = new Follower(followerId, invertFollower ? MotorAlignmentValue.Opposed : MotorAlignmentValue.Aligned);
             
             this.motorGearRatio = motorGearRatio;
             this.followerGearRatio = followerGearRatio;
@@ -68,10 +70,8 @@ public abstract class RollerWithFollowerSubsystemBase<T extends Enum<T>> extends
     
 
         motor.getConfigurator().apply(motorConfig);
-        follower.getConfigurator().apply(followerConfig);
     
         motor.setControl(velocityVoltage.withVelocity(RPM));
-        follower.setControl(velocityVoltage.withVelocity(RPM));
         }
     
     /**<p> An alternative way of creating a subsystem with dramatically less parameters. May be dangerous. </p>
@@ -124,9 +124,9 @@ public abstract class RollerWithFollowerSubsystemBase<T extends Enum<T>> extends
         }
         
 
-
+        //Replace Duplicated Code With methods or smarter solutions
         motor = new TalonFX(motorId, Constants.krakenBus);
-        follower = new TalonFX(followerId, Constants.krakenBus);
+    //    follower = new TalonFX(followerId, Constants.krakenBus);
         this.motorGearRatio = motorGearRatio;
         this.followerGearRatio = followerGearRatio;
 
@@ -143,10 +143,10 @@ public abstract class RollerWithFollowerSubsystemBase<T extends Enum<T>> extends
 
 
         motor.getConfigurator().apply(motorConfig);
-        follower.getConfigurator().apply(followerConfig);
+     //   follower.getConfigurator().apply(followerConfig);
 
         motor.setControl(velocityVoltage.withVelocity(RPM));
-        follower.setControl(velocityVoltage.withVelocity(invertFollower ? -RPM : RPM));
+     //   follower.setControl(velocityVoltage.withVelocity(invertFollower ? -RPM : RPM));
     
     }
 
@@ -156,22 +156,23 @@ public abstract class RollerWithFollowerSubsystemBase<T extends Enum<T>> extends
     @Overridable
     public void setFollowerConfiguration(TalonFXConfiguration config) {}
 
+    //Make an overridable method that takes a value and sets the motors
     @Overridable
     public void logging() {
         log("CurrentState", currentState);
         log("WantedState", wantedState);
 
         log("RollerRPS", motor.getVelocity().getValueAsDouble());
-        log("FollowerRPS", follower.getVelocity().getValueAsDouble());
+       //log("FollowerRPS", follower.getVelocity().getValueAsDouble());
 
         log("rollerTemp", motor.getDeviceTemp().getValueAsDouble());
-        log("followerTemp",  follower.getDeviceTemp().getValueAsDouble());
+       // log("followerTemp",  follower.getDeviceTemp().getValueAsDouble());
 
         log("rollerCurrent", motor.getStatorCurrent().getValueAsDouble());
-        log("followerCurrent", follower.getStatorCurrent().getValueAsDouble());
+        //log("followerCurrent", follower.getStatorCurrent().getValueAsDouble());
 
         log("rollerVoltage", motor.getMotorVoltage().getValueAsDouble());
-        log("followerVoltage", follower.getMotorVoltage().getValueAsDouble());      
+        //log("followerVoltage", follower.getMotorVoltage().getValueAsDouble());      
         
     }
 

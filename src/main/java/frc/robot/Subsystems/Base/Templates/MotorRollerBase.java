@@ -1,4 +1,4 @@
-package frc.robot.subsystems.Handle.Templates;
+package frc.robot.Subsystems.Base.Templates;
 
 import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;

@@ -1,4 +1,4 @@
-package frc.robot.subsystems.Handle.Templates;
+package frc.robot.Subsystems.Base.Templates;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.subsystems.Handle.SubsystemHandle;
+import frc.robot.Subsystems.Base.Templates.SubsystemHandle;
 
 public abstract class OtherSubsystemBase<T extends Enum<T>> extends SubsystemHandle<T> {
     List<MotorRollerBase> rollers = new ArrayList<>();

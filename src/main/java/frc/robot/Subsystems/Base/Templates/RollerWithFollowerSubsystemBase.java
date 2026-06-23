@@ -1,4 +1,4 @@
-package frc.robot.subsystems.Handle.Templates;
+package frc.robot.Subsystems.Base.Templates;
 
 import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.Logger;
@@ -15,7 +15,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
 import frc.robot.Constants;
-import frc.robot.subsystems.Handle.SubsystemHandle;
+import frc.robot.Subsystems.Base.Templates.SubsystemHandle;
 
 public abstract class RollerWithFollowerSubsystemBase<T extends Enum<T>> extends SubsystemHandle<T> {
     public TalonFX motor;
